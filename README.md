@@ -13,7 +13,7 @@ Follow these steps to set up the project:
 
 1. **Clone the repository:**
    ```sh
-   git clone <repository-url>
+   git clone https://github.com/Stranger-One/Ballers_React-Tailwind.git
    cd Ballers_React-Tailwind
    ```
 
