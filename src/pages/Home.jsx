@@ -43,7 +43,7 @@ const Home = () => {
         Logout
       </button>
       <h1 className="text-3xl font-bold mb-6 text-center">Products</h1>
-      <div className="w-full mx-auto border rounded-xl overflow-hidden flex items-center">
+      <div className="w-full mx-auto border rounded-xl overflow-hidden flex items-center mb-10">
         <input
           value={search}
           onChange={handleSearch}
@@ -55,70 +55,76 @@ const Home = () => {
           <IoSearch size={20} />
         </button>
       </div>
-      <div className="mb-10">
-        <h2 className="text-3xl my-4 font-semibold">Featured Products</h2>
-        <div className="relative">
-          <Swiper
-            slidesPerView={1.2}
-            spaceBetween={10}
-            breakpoints={{
-              640: {
-                slidesPerView: 2.2,
-                spaceBetween: 20,
-              },
-              768: {
-                slidesPerView: 3.2,
-                spaceBetween: 30,
-              },
-              1024: {
-                slidesPerView: 4.2,
-                spaceBetween: 40,
-              },
-            }}
-            navigation={{
-              nextEl: ".swiper-button-next",
-              prevEl: ".swiper-button-prev",
-            }}
-            modules={[FreeMode, Pagination, Navigation]}
-            className="mySwiper"
-          >
-            {items.map((item) => (
-              <SwiperSlide
-                key={item.id}
-                onClick={() => navigate(`/details/${item.id}`)}
-                className=""
-              >
-                <div
+      {!search && (
+        <div className="mb-10">
+          <h2 className="text-3xl my-4 font-semibold">Featured Products</h2>
+          <div className="relative">
+            <Swiper
+              slidesPerView={1.2}
+              spaceBetween={10}
+              breakpoints={{
+                640: {
+                  slidesPerView: 2.2,
+                  spaceBetween: 20,
+                },
+                768: {
+                  slidesPerView: 3.2,
+                  spaceBetween: 30,
+                },
+                1024: {
+                  slidesPerView: 4.2,
+                  spaceBetween: 40,
+                },
+              }}
+              navigation={{
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+              }}
+              modules={[FreeMode, Pagination, Navigation]}
+              className="mySwiper"
+            >
+              {items.map((item) => (
+                <SwiperSlide
                   key={item.id}
-                  className="border p-4 bg-white rounded-lg shadow hover:shadow-lg transition-shadow cursor-pointer group h-full"
                   onClick={() => navigate(`/details/${item.id}`)}
+                  className=""
                 >
-                  <h2 className="text-xl font-semibold mb-2 line-clamp-1">
-                    {item.title}
-                  </h2>
-                  <div className="w-full h-fit">
-                    <img
-                      src={item.thumbnail}
-                      alt={item.title}
-                      className="w-full object-cover rounded mb-2 group-hover:scale-110 duration-200"
-                    />
+                  <div
+                    key={item.id}
+                    className="border p-4 bg-white rounded-lg shadow hover:shadow-lg transition-shadow cursor-pointer group h-full"
+                    onClick={() => navigate(`/details/${item.id}`)}
+                  >
+                    <h2 className="text-xl font-semibold mb-2 line-clamp-1">
+                      {item.title}
+                    </h2>
+                    <div className="w-full h-fit">
+                      <img
+                        src={item.thumbnail}
+                        alt={item.title}
+                        className="w-full object-cover rounded mb-2 group-hover:scale-110 duration-200"
+                      />
+                    </div>
+                    <p className="text-gray-700 line-clamp-4">
+                      {item.description}
+                    </p>
+                    <p className="text-gray-900 font-bold mt-2">
+                      ${item.price}
+                    </p>
                   </div>
-                  <p className="text-gray-700 line-clamp-4">{item.description}</p>
-                  <p className="text-gray-900 font-bold mt-2">${item.price}</p>
-                </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-          <div className="swiper-button-prev absolute top-1/2 left-0 transform -translate-y-1/2 z-10 cursor-pointer">
-            <IoIosArrowBack size={30} />
-          </div>
-          <div className="swiper-button-next absolute top-1/2 right-0 transform -translate-y-1/2 z-10 cursor-pointer">
-            <IoIosArrowForward size={30} />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+            <div className="swiper-button-prev absolute top-1/2 left-0 transform -translate-y-1/2 z-10 cursor-pointer">
+              <IoIosArrowBack size={30} />
+            </div>
+            <div className="swiper-button-next absolute top-1/2 right-0 transform -translate-y-1/2 z-10 cursor-pointer">
+              <IoIosArrowForward size={30} />
+            </div>
           </div>
         </div>
-      </div>
+      )}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {filteredItems.map((item) => (
+        {filteredItems.length ? filteredItems.map((item) => (
           <div
             key={item.id}
             className="border p-4 bg-white rounded-lg shadow hover:shadow-lg transition-shadow cursor-pointer group"
@@ -135,7 +141,9 @@ const Home = () => {
             <p className="text-gray-700">{item.description}</p>
             <p className="text-gray-900 font-bold mt-2">${item.price}</p>
           </div>
-        ))}
+        )) : (
+          <p className="text-gray-700 text-center mt-10 col-span-full text-2xl">No items found for "{search}"</p>
+        )}
       </div>
     </div>
   );
