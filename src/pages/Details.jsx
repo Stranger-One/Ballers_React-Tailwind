@@ -25,12 +25,12 @@ const Details = () => {
       >
         <FaArrowLeft size={20} /> Go Back
       </button>
-      <div className="shadow p-4 rounded-lg flex flex-col md:flex-row">
-        <div className="w-[400px] ">
+      <div className="shadow p-4 rounded-lg flex gap-5 flex-col md:flex-row">
+        <div className="w-full ">
           <img
             src={item.thumbnail}
             alt={item.title}
-            className="w-full h-60 object-cover rounded mb-4"
+            className="w-full object-cover rounded mb-4"
           />
         </div>
         <div className="">
